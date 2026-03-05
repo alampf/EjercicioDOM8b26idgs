@@ -56,4 +56,9 @@ list.addEventListener('click', (e) => {
     card.dataset.favorite = isFav ? '0' : '1';
     btn.textContent = isFav ? '☆' : '★';
   }
+
+  // Marcar como completada
+  if (action === 'done') {
+    card.classList.toggle('is-done');
+  }
 });
