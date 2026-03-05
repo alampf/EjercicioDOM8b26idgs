@@ -40,3 +40,20 @@ formTarea.addEventListener('submit', (e) => {
   // Limpiar el input después de agregar la tarea
   inputTitulo.value = '';
 });
+
+// Marcar tarea como favorita, completada o eliminarla
+list.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+
+  const card = btn.closest('.card');
+  const action = btn.dataset.action;
+
+  // Lógica para cada acción
+  // Marcar como favorito
+  if (action === 'fav') {
+    const isFav = card.dataset.favorite === '1';
+    card.dataset.favorite = isFav ? '0' : '1';
+    btn.textContent = isFav ? '☆' : '★';
+  }
+});
