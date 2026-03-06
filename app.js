@@ -33,7 +33,6 @@ const buildCard = ({ title, tag }) => {
 };
 
 // Agregar nueva tarea
-
 formTarea.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -47,29 +46,34 @@ formTarea.addEventListener('submit', (e) => {
   inputTitulo.value = '';
 });
 
-// // Marcar tarea como favorita, completada o eliminarla
-// list.addEventListener('click', (e) => {
-//   const btn = e.target.closest('button');
-//   if (!btn) return;
+// Delegación de eventos marcar como favorito, completada o eliminar tarea
+taskList.addEventListener('click', (e) => {
+  const action = e.target.dataset.action;
+  if (!action) return;
 
-//   const card = btn.closest('.card');
-//   const action = btn.dataset.action;
+  const card = e.target.closest('.card');
+  if (action === 'fav') {
+    doFav(card, e.target);
+  }
+  if (action === 'done') {
+    doDone(card);
+  }
+  if (action === 'del') {
+    doDelete(card);
+  }
+});
 
-//   // Lógica para cada acción
-//   // Marcar como favorito
-//   if (action === 'fav') {
-//     const isFav = card.dataset.favorite === '1';
-//     card.dataset.favorite = isFav ? '0' : '1';
-//     btn.textContent = isFav ? '☆' : '★';
-//   }
+// Acciones para marcar como favorito, completada o eliminar tarea
+const doFav = (card, btn) => {
+  const fav = card.dataset.favorite === '1';
+  card.dataset.favorite = fav ? '0' : '1';
+  btn.textContent = fav ? '☆' : '★';
+};
 
-//   // Marcar como completada
-//   if (action === 'done') {
-//     card.classList.toggle('is-done');
-//   }
+const doDone = (card) => {
+  card.classList.toggle('is-done');
+};
 
-//   // Eliminar tarea
-//   if (action === 'del') {
-//     card.remove();
-//   }
-// });
+const doDelete = (card) => {
+  card.remove();
+};
